@@ -74,7 +74,7 @@ class Wowza implements WowzaInterface {
       return axios(axiosOptions);
     }
 
-    return Promise.reject(new Error("Missing props or props.restURI"));
+    return Promise.reject(new Error("Missing props for sendRequest()"));
   }
 }
 

@@ -9,7 +9,6 @@ const settings = new Settings({
   vhostInstance: "_defaultVHost_",
   username: "some-user",
   password: "some-password",
-  useDigest: true,
 });
 
 const requestProps = {
@@ -40,7 +39,8 @@ describe("Wowza Base Class", () => {
 
   test("Should fail when try to SEND with missing props", () => {
     const wowza = new Wowza(settings);
-    const result = wowza.sendRequest(null, []);
+    // @ts-ignore
+    const result = wowza.sendRequest(settings.getHost(), undefined, []);
     expect(result).rejects.not.toBeNull();
   });
 
@@ -53,7 +53,12 @@ describe("Wowza Base Class", () => {
 
   test("Should send an request (mocked)", () => {
     const wowza = new Wowza(settings);
-    const result = wowza.sendRequest(requestProps, [], methods.POST);
+    const result = wowza.sendRequest(
+      settings.getHost(),
+      requestProps,
+      [],
+      methods.POST
+    );
 
     mockAxios.mockResponse({ data: requestProps });
 
