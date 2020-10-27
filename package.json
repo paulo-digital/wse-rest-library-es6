@@ -1,0 +1,44 @@
+{
+  "name": "wse-rest-library-es6",
+  "version": "0.0.1",
+  "description": "ES6 (Javascript) library that wraps the Wowza Streaming Engine™ REST API",
+  "author": "paulo.digital | 2020",
+  "keywords": [
+    "wowza",
+    "engine",
+    "sdk",
+    "rest",
+    "video",
+    "paulo-digital"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulo-digital/wse-rest-library-es6.git"
+  },
+  "scripts": {
+    "test": "jest --collect-coverage --colors --coverageProvider=v8"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-date-mock"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.1",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.4",
+    "jest": "^26.5.3",
+    "prettier": "^2.1.2",
+    "typescript": "^3.9.7"
+  }
+}
