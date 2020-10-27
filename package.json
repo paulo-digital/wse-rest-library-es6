@@ -19,11 +19,6 @@
   "scripts": {
     "test": "jest --collect-coverage --colors --coverageProvider=v8"
   },
-  "jest": {
-    "setupFiles": [
-      "jest-date-mock"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
