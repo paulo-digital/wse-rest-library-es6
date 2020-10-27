@@ -1,4 +1,4 @@
-class settings {
+class Settings {
   private debug: boolean;
   private host: string;
   private serverInstance: string;
@@ -179,4 +179,4 @@ class settings {
   }
 }
 
-export default settings;
+export default Settings;

@@ -1,41 +1,50 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-import settings from "./entities/app/helpers/settings";
+import { RequestProperties } from "../types/RequestProperties.d";
+import Settings from "./entities/app/helpers/settings";
 import { Entity } from "./entities/entity.d";
 
-type VerbTypes = {
-  VERB_POST: string;
-  VERB_GET: string;
-  VERB_DELETE: string;
-  VERB_PUT: string;
+type MethodTypes = {
+  POST: string;
+  GET: string;
+  DELETE: string;
+  PUT: string;
 };
 
-const verbs: VerbTypes = {
-  VERB_POST: "POST",
-  VERB_GET: "GET",
-  VERB_DELETE: "DELETE",
-  VERB_PUT: "PUT",
+export const methods: MethodTypes = {
+  POST: "POST",
+  GET: "GET",
+  DELETE: "DELETE",
+  PUT: "PUT",
 };
 
 export interface wowzaInterface {
-  settings: settings;
+  settings: Settings;
+  sendRequest(
+    props: RequestProperties,
+    entities: Entity[],
+    verbType?: string,
+    queryParams?: string
+  ): any;
+  preparePropertiesForRequest(props: RequestProperties): string;
 }
 
-class wowza implements wowzaInterface {
-  settings: settings;
+class Wowza implements wowzaInterface {
+  settings: Settings;
+  restURI: string;
 
-  public constructor(settings: settings) {
+  public constructor(settings: Settings) {
     this.settings = settings;
   }
 
-  private getHost() {
+  getHost() {
     return this.settings.getHost();
   }
 
-  private getServerInstance() {
+  getServerInstance() {
     return this.settings.getServerInstance();
   }
 
-  private getVHostInstance() {
+  getVHostInstance() {
     return this.settings.getVhostInstance();
   }
 
@@ -45,11 +54,11 @@ class wowza implements wowzaInterface {
     }
   }
 
-  private sendRequest(
-    props: any,
+  sendRequest(
+    props: RequestProperties,
     entities: Entity[],
-    verbType: string = verbs.VERB_POST,
-    queryParams: string
+    verbType: string = methods.POST,
+    queryParams?: string
   ) {
     if (props && props.restURI) {
       const entityCount = entities.length;
@@ -64,9 +73,8 @@ class wowza implements wowzaInterface {
       const body = JSON.stringify(json);
 
       let restURL = props.restURI;
-      if (queryParams !== null) {
-        restURL += `?${queryParams}`;
-      }
+      if (queryParams) restURL += `?${queryParams}`;
+
       this.debug(`JSON REQUEST to ${restURL} with verb ${verbType}: ${body}`);
 
       const xhr = new XMLHttpRequest();
@@ -96,7 +104,7 @@ class wowza implements wowzaInterface {
           if (this.readyState === this.DONE) {
             this.debug("Complete.\nBody length: " + this.responseText.length);
             this.debug("Body:\n" + this.responseText);
-            resolve(this.responseText);
+            resolve(JSON.parse(this.responseText));
           }
         };
         xhr.addEventListener("timeout", () => {
@@ -118,3 +126,5 @@ class wowza implements wowzaInterface {
     return Promise.reject(new Error("Missing props."));
   }
 }
+
+export default Wowza;
