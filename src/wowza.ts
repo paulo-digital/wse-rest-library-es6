@@ -1,4 +1,4 @@
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const axios = require("axios").default;
 // Types
 import { RequestProperties } from "../types/RequestProperties.d";
 import { Entity } from "../types/Entity.d";
@@ -33,7 +33,7 @@ class Wowza implements WowzaInterface {
     return this.settings.getVhostInstance();
   }
 
-  private debug(str: string) {
+  private debug(str: any) {
     if (this.settings.isDebug()) {
       console.debug(str);
     }
@@ -54,61 +54,30 @@ class Wowza implements WowzaInterface {
         });
       }
 
-      const json = props;
-      const body = JSON.stringify(json);
-
       let restURL = props.restURI;
       if (queryParams) restURL += `?${queryParams}`;
 
-      this.debug(`JSON REQUEST to ${restURL} with verb ${verbType}: ${body}`);
+      const axiosOptions = {
+        url: restURL,
+        method: verbType,
+        headers: {
+          Accept: "application/json; charset=utf-8",
+          "Content-type": "application/json; charset=utf-8",
+        },
+        withCredentials: this.settings.isUseDigest(),
+        data: props,
+        auth: {
+          username: this.settings.getUsername(),
+          password: this.settings.getPassword(),
+        },
+      };
 
-      const xhr = new XMLHttpRequest();
+      this.debug(axiosOptions);
 
-      // Config the Request.
-
-      xhr.setRequestHeader("Accept", "application/json; charset=utf-8");
-      xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-      xhr.setRequestHeader("Content-Length:", body.length);
-
-      if (this.settings.isUseDigest()) {
-        xhr.withCredentials = true;
-        xhr.open(
-          verbType,
-          restURL,
-          true,
-          this.settings.getUsername(),
-          this.settings.getPassword()
-        );
-      } else {
-        xhr.open(verbType, restURL);
-      }
-
-      return new Promise((resolve, reject) => {
-        // Listeners.
-        xhr.onreadystatechange = function () {
-          if (this.readyState === this.DONE) {
-            this.debug("Complete.\nBody length: " + this.responseText.length);
-            this.debug("Body:\n" + this.responseText);
-            resolve(JSON.parse(this.responseText));
-          }
-        };
-        xhr.addEventListener("timeout", () => {
-          reject(new Error("Request timeout"));
-        });
-        xhr.addEventListener("error", () => {
-          reject(new Error("Network Failure"));
-        });
-
-        // Send.
-        try {
-          xhr.send(body);
-        } catch (error) {
-          reject(error);
-        }
-      });
+      return axios(axiosOptions);
     }
 
-    return Promise.reject(new Error("Missing props."));
+    return Promise.reject(new Error("Missing props or props.restURI"));
   }
 }
 
