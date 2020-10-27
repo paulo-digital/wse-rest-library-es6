@@ -38,7 +38,7 @@ describe("Wowza Base Class", () => {
     expect(wowza.settings).toBe(settings);
   });
 
-  test("Should fail when try to SEND send with missing props", () => {
+  test("Should fail when try to SEND with missing props", () => {
     const wowza = new Wowza(settings);
     const result = wowza.sendRequest(null, []);
     expect(result).rejects.not.toBeNull();
