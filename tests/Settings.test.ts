@@ -14,18 +14,12 @@ const baseSettings: SettingsProperties = {
 describe("Settings Class", () => {
   test("Should create settings properly", () => {
     const settings = new Settings(baseSettings);
-
-    expect(settings.isDebug()).toBe(baseSettings.debug);
-    expect(settings.getHost()).toBe(baseSettings.host);
-    expect(settings.getServerInstance()).toBe(baseSettings.serverInstance);
-    expect(settings.getVhostInstance()).toBe(baseSettings.vhostInstance);
-    expect(settings.getUsername()).toBe(baseSettings.username);
-    expect(settings.getPassword()).toBe(baseSettings.password);
-    expect(settings.isUseDigest()).toBe(baseSettings.useDigest);
+    checkAllExpects(settings);
   });
 
   test("Should set properties properly", () => {
     const settings = new Settings();
+
     settings.setDebug(baseSettings.debug);
     settings.setHost(baseSettings.host);
     settings.setServerInstance(baseSettings.serverInstance);
@@ -34,12 +28,16 @@ describe("Settings Class", () => {
     settings.setPassword(baseSettings.password);
     settings.setUseDigest(baseSettings.useDigest);
 
-    expect(settings.isDebug()).toBe(baseSettings.debug);
-    expect(settings.getHost()).toBe(baseSettings.host);
-    expect(settings.getServerInstance()).toBe(baseSettings.serverInstance);
-    expect(settings.getVhostInstance()).toBe(baseSettings.vhostInstance);
-    expect(settings.getUsername()).toBe(baseSettings.username);
-    expect(settings.getPassword()).toBe(baseSettings.password);
-    expect(settings.isUseDigest()).toBe(baseSettings.useDigest);
+    checkAllExpects(settings);
   });
 });
+
+function checkAllExpects(settings: Settings) {
+  expect(settings.isDebug()).toBe(baseSettings.debug);
+  expect(settings.getHost()).toBe(baseSettings.host);
+  expect(settings.getServerInstance()).toBe(baseSettings.serverInstance);
+  expect(settings.getVhostInstance()).toBe(baseSettings.vhostInstance);
+  expect(settings.getUsername()).toBe(baseSettings.username);
+  expect(settings.getPassword()).toBe(baseSettings.password);
+  expect(settings.isUseDigest()).toBe(baseSettings.useDigest);
+}

@@ -1,23 +1,19 @@
 import { SettingsProperties } from "../../../../types/Settings.d";
 
 class Settings {
-  private debug: boolean;
-  private host: string;
-  private serverInstance: string;
-  private vhostInstance: string;
-  private username: string;
-  private password: string;
-  private useDigest: boolean;
+  private settings: SettingsProperties = {
+    debug: false,
+    host: "http://localhost:8087/v2",
+    serverInstance: "_defaultServer_",
+    vhostInstance: "_defaultVHost_",
+    username: "",
+    password: "",
+    useDigest: true,
+  };
 
   constructor(settings?: SettingsProperties) {
     if (settings) {
-      this.debug = settings.debug;
-      this.host = settings.host;
-      this.serverInstance = settings.serverInstance;
-      this.vhostInstance = settings.vhostInstance;
-      this.username = settings.username;
-      this.password = settings.password;
-      this.useDigest = settings.useDigest;
+      this.settings = { ...this.settings, ...settings };
     }
   }
 
@@ -27,7 +23,7 @@ class Settings {
    * @return bool
    */
   public isDebug() {
-    return this.debug;
+    return this.settings.debug;
   }
 
   /**
@@ -38,7 +34,7 @@ class Settings {
    * @return Settings
    */
   public setDebug(debug: boolean) {
-    this.debug = debug;
+    this.settings.debug = debug;
     return this;
   }
 
@@ -48,7 +44,7 @@ class Settings {
    * @return string
    */
   public getHost() {
-    return this.host;
+    return this.settings.host;
   }
 
   /**
@@ -59,7 +55,7 @@ class Settings {
    * @return settings
    */
   public setHost(host: string) {
-    this.host = host;
+    this.settings.host = host;
 
     return this;
   }
@@ -70,7 +66,7 @@ class Settings {
    * @return string
    */
   public getServerInstance() {
-    return this.serverInstance;
+    return this.settings.serverInstance;
   }
 
   /**
@@ -81,7 +77,7 @@ class Settings {
    * @return settings
    */
   public setServerInstance(serverInstance: string) {
-    this.serverInstance = serverInstance;
+    this.settings.serverInstance = serverInstance;
 
     return this;
   }
@@ -92,7 +88,7 @@ class Settings {
    * @return string
    */
   public getVhostInstance() {
-    return this.vhostInstance;
+    return this.settings.vhostInstance;
   }
 
   /**
@@ -103,7 +99,7 @@ class Settings {
    * @return settings
    */
   public setVhostInstance(vhostInstance: string) {
-    this.vhostInstance = vhostInstance;
+    this.settings.vhostInstance = vhostInstance;
 
     return this;
   }
@@ -114,7 +110,7 @@ class Settings {
    * @return string
    */
   getUsername() {
-    return this.username;
+    return this.settings.username;
   }
 
   /**
@@ -125,7 +121,7 @@ class Settings {
    * @return settings
    */
   public setUsername(username: string) {
-    this.username = username;
+    this.settings.username = username;
 
     return this;
   }
@@ -136,7 +132,7 @@ class Settings {
    * @return string
    */
   public getPassword() {
-    return this.password;
+    return this.settings.password;
   }
 
   /**
@@ -147,7 +143,7 @@ class Settings {
    * @return settings
    */
   public setPassword(password: string) {
-    this.password = password;
+    this.settings.password = password;
 
     return this;
   }
@@ -158,7 +154,7 @@ class Settings {
    * @return bool
    */
   public isUseDigest() {
-    return this.useDigest;
+    return this.settings.useDigest;
   }
 
   /**
@@ -169,7 +165,7 @@ class Settings {
    * @return Settings
    */
   public setUseDigest(useDigest: boolean) {
-    this.useDigest = useDigest;
+    this.settings.useDigest = useDigest;
 
     return this;
   }

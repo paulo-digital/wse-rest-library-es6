@@ -1,9 +1,9 @@
 export type SettingsProperties = {
-  debug: boolean;
+  debug?: boolean;
   host: string;
   serverInstance: string;
   vhostInstance: string;
-  username: string;
-  password: string;
-  useDigest: boolean;
+  username?: string;
+  password?: string;
+  useDigest?: boolean;
 };
