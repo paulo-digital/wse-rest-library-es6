@@ -3,6 +3,7 @@ import { RequestProperties } from "../types/RequestProperties";
 import Wowza, { methods } from "./wowza";
 
 class StreamTarget extends Wowza {
+  private appName: string;
   private props: RequestProperties = {
     sourceStreamName: "myStream",
     entryName: "ppsource",
@@ -16,20 +17,56 @@ class StreamTarget extends Wowza {
     restURI: null,
   };
 
-  private appName: string;
-
   public constructor(settings: Settings, appName: string) {
     super(settings);
     this.appName = appName;
   }
 
-  public create(createProps: RequestProperties) {
-    const { entryName } = createProps;
+  public create(props: RequestProperties) {
+    this.updateProps(props);
+    return this.sendRequest(this.props, [], methods.POST);
+  }
 
-    this.props = { ...this.props, ...createProps };
+  public update(props: RequestProperties) {
+    this.updateProps(props);
+    return this.sendRequest(this.props, [], methods.PUT);
+  }
+
+  getAll() {
+    this.setNoParams();
+    this.props.restURI = this.getRestURI();
+
+    return this.sendRequest(this.props, [], methods.GET);
+  }
+
+  remove(entryName: string) {
+    this.setNoParams();
     this.props.restURI = `${this.getRestURI()}/${entryName}`;
 
-    return this.sendRequest(this.props, [], methods.POST);
+    return this.sendRequest(this.props, [], methods.DELETE);
+  }
+
+  // Private methods. /////// ////////
+
+  private setNoParams() {
+    this.props = {
+      ...this.props,
+      sourceStreamName: null,
+      entryName: null,
+      profile: null,
+      host: null,
+      userName: null,
+      password: null,
+      streamName: null,
+      application: null,
+    };
+  }
+
+  private updateProps(props: RequestProperties) {
+    const { entryName } = props;
+
+    this.props = { ...this.props, ...props };
+    this.props.restURI = `${this.getRestURI()}/${entryName}`;
   }
 
   getRestURI() {
