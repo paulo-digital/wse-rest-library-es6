@@ -40,5 +40,8 @@
     "jest": "^26.5.3",
     "prettier": "^2.1.2",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
   }
 }
