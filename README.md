@@ -8,7 +8,7 @@ Wowza Streaming Engine™ 4.0.0 or later is required.
 
 ## More resources
 
-Wowza Media Systems™ provides developers with a platform to create streaming applications and solutions. See [Wowza Developer Tools](https://www.wowza.com/developer) to learn more about our APIs and SDK.
+Wowza Media Systems™ provides developers with a platform to create streaming applications and solutions. See [Wowza Developer Tools](https://www.wowza.com/developer) to learn more about the APIs and SDK.
 
 ## Usage
 
