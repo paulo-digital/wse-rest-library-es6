@@ -21,4 +21,4 @@ For Wowza server related issues:
 
 ## License
 
-This code is distributed under the [GNU Public License](/LICENSE.txt).
+This code is distributed under the [GNU General Public License v3.0](/LICENSE).
