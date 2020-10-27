@@ -32,14 +32,14 @@ class StreamTarget extends Wowza {
     return this.sendRequest(this.props, [], methods.PUT);
   }
 
-  getAll() {
+  public getAll() {
     this.setNoParams();
     this.props.restURI = this.getRestURI();
 
     return this.sendRequest(this.props, [], methods.GET);
   }
 
-  remove(entryName: string) {
+  public remove(entryName: string) {
     this.setNoParams();
     this.props.restURI = `${this.getRestURI()}/${entryName}`;
 
