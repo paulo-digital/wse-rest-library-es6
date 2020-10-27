@@ -21,15 +21,15 @@ class Wowza implements WowzaInterface {
     this.settings = settings;
   }
 
-  getHost() {
+  public getHost() {
     return this.settings.getHost();
   }
 
-  getServerInstance() {
+  public getServerInstance() {
     return this.settings.getServerInstance();
   }
 
-  getVHostInstance() {
+  public getVHostInstance() {
     return this.settings.getVhostInstance();
   }
 
@@ -40,31 +40,28 @@ class Wowza implements WowzaInterface {
   }
 
   sendRequest(
+    uri: string,
     props: RequestProperties,
     entities: Entity[],
     verbType: string = methods.POST,
     queryParams?: string
   ) {
-    if (props && props.restURI) {
-      const entityCount = entities.length;
-      if (entityCount > 0) {
-        entities.forEach((entity, i) => {
-          const name = entity.getEntityName();
-          props[name] = entity;
-        });
-      }
-
-      let restURL = props.restURI;
-      if (queryParams) restURL += `?${queryParams}`;
+    if (props) {
+      // const entityCount = entities.length;
+      // if (entityCount > 0) {
+      //   entities.forEach((entity, i) => {
+      //     const name = entity.getEntityName();
+      //     props[name] = entity;
+      //   });
+      // }
 
       const axiosOptions = {
-        url: restURL,
+        url: uri,
         method: verbType,
         headers: {
           Accept: "application/json; charset=utf-8",
           "Content-type": "application/json; charset=utf-8",
         },
-        withCredentials: this.settings.isUseDigest(),
         data: props,
         auth: {
           username: this.settings.getUsername(),

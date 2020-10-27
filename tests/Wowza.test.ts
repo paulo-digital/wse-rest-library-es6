@@ -3,7 +3,7 @@ import Settings from "../src/entities/app/helpers/Settings";
 import Wowza, { methods } from "../src/wowza";
 
 const settings = new Settings({
-  debug: true,
+  debug: false,
   host: "http://localhost",
   serverInstance: "_defaultServer_",
   vhostInstance: "_defaultVHost_",

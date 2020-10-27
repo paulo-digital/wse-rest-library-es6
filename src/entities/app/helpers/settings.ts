@@ -3,12 +3,12 @@ import { SettingsProperties } from "../../../../types/Settings.d";
 class Settings {
   private settings: SettingsProperties = {
     debug: false,
-    host: "http://localhost:8087/v2",
+    host: "http://localhost:8087",
+    apiVersion: "v3",
     serverInstance: "_defaultServer_",
     vhostInstance: "_defaultVHost_",
     username: "",
     password: "",
-    useDigest: true,
   };
 
   constructor(settings?: SettingsProperties) {
@@ -127,6 +127,15 @@ class Settings {
   }
 
   /**
+   * Get API version.
+   *
+   * @return string
+   */
+  public getApiVersion() {
+    return this.settings.apiVersion;
+  }
+
+  /**
    * Get Password.
    *
    * @return string
@@ -144,28 +153,6 @@ class Settings {
    */
   public setPassword(password: string) {
     this.settings.password = password;
-
-    return this;
-  }
-
-  /**
-   * Get UseDigest.
-   *
-   * @return bool
-   */
-  public isUseDigest() {
-    return this.settings.useDigest;
-  }
-
-  /**
-   * Set UseDigest.
-   *
-   * @param bool useDigest
-   *
-   * @return Settings
-   */
-  public setUseDigest(useDigest: boolean) {
-    this.settings.useDigest = useDigest;
 
     return this;
   }

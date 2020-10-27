@@ -12,6 +12,7 @@ export type MethodTypes = {
 export interface WowzaInterface {
   settings: Settings;
   sendRequest(
+    uri: string,
     props: RequestProperties,
     entities: Entity[],
     verbType?: string,

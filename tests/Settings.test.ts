@@ -3,12 +3,12 @@ import { SettingsProperties } from "../types/Settings.d";
 
 const baseSettings: SettingsProperties = {
   debug: false,
-  host: "http://localhost",
+  host: "http://localhost:8087",
+  apiVersion: "v3",
   serverInstance: "_defaultServer_",
   vhostInstance: "_defaultVHost_",
   username: "some-user",
   password: "some-password",
-  useDigest: true,
 };
 
 describe("Settings Class", () => {
@@ -26,7 +26,6 @@ describe("Settings Class", () => {
     settings.setVhostInstance(baseSettings.vhostInstance);
     settings.setUsername(baseSettings.username);
     settings.setPassword(baseSettings.password);
-    settings.setUseDigest(baseSettings.useDigest);
 
     checkAllExpects(settings);
   });
@@ -39,5 +38,5 @@ function checkAllExpects(settings: Settings) {
   expect(settings.getVhostInstance()).toBe(baseSettings.vhostInstance);
   expect(settings.getUsername()).toBe(baseSettings.username);
   expect(settings.getPassword()).toBe(baseSettings.password);
-  expect(settings.isUseDigest()).toBe(baseSettings.useDigest);
+  expect(settings.getApiVersion()).toBe(baseSettings.apiVersion);
 }
