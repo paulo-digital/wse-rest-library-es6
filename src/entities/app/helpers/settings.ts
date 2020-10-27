@@ -1,3 +1,5 @@
+import { SettingsProperties } from "../../../../types/Settings.d";
+
 class Settings {
   private debug: boolean;
   private host: string;
@@ -7,22 +9,16 @@ class Settings {
   private password: string;
   private useDigest: boolean;
 
-  constructor({
-    debug = false,
-    host = "http://localhost:8087/v2",
-    serverInstance = "_defaultServer_",
-    vhostInstance = "_defaultVHost_",
-    username = "",
-    password = "",
-    useDigest = true,
-  }) {
-    this.debug = debug;
-    this.host = host;
-    this.serverInstance = serverInstance;
-    this.vhostInstance = vhostInstance;
-    this.username = username;
-    this.password = password;
-    this.useDigest = useDigest;
+  constructor(settings?: SettingsProperties) {
+    if (settings) {
+      this.debug = settings.debug;
+      this.host = settings.host;
+      this.serverInstance = settings.serverInstance;
+      this.vhostInstance = settings.vhostInstance;
+      this.username = settings.username;
+      this.password = settings.password;
+      this.useDigest = settings.useDigest;
+    }
   }
 
   /**
