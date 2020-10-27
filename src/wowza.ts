@@ -1,14 +1,10 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// Types
 import { RequestProperties } from "../types/RequestProperties.d";
-import Settings from "./entities/app/helpers/settings";
-import { Entity } from "./entities/entity.d";
-
-type MethodTypes = {
-  POST: string;
-  GET: string;
-  DELETE: string;
-  PUT: string;
-};
+import { Entity } from "../types/Entity.d";
+import { MethodTypes, WowzaInterface } from "../types/Wowza.d";
+// Classes
+import Settings from "./entities/app/helpers/Settings";
 
 export const methods: MethodTypes = {
   POST: "POST",
@@ -17,18 +13,7 @@ export const methods: MethodTypes = {
   PUT: "PUT",
 };
 
-export interface wowzaInterface {
-  settings: Settings;
-  sendRequest(
-    props: RequestProperties,
-    entities: Entity[],
-    verbType?: string,
-    queryParams?: string
-  ): any;
-  preparePropertiesForRequest(props: RequestProperties): string;
-}
-
-class Wowza implements wowzaInterface {
+class Wowza implements WowzaInterface {
   settings: Settings;
   restURI: string;
 

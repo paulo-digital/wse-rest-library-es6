@@ -1,6 +1,8 @@
-import Settings from "./entities/app/helpers/settings";
-import { RequestProperties } from "../types/RequestProperties";
-import Wowza, { methods } from "./wowza";
+// Types
+import { RequestProperties } from "../types/RequestProperties.d";
+// Classes
+import Settings from "./entities/app/helpers/Settings";
+import Wowza, { methods } from "./Wowza";
 
 class StreamTarget extends Wowza {
   private appName: string;
