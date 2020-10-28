@@ -1,5 +1,5 @@
 // Types
-import { RequestProperties } from "../types/RequestProperties.d";
+import { RequestPayload } from "../types/RequestPayload";
 // Classes
 import Settings from "./entities/app/helpers/Settings";
 import Wowza, { methods } from "./Wowza";
@@ -14,11 +14,11 @@ class StreamTarget extends Wowza {
    * instance of Wowza Streaming Engine.
    * @param props
    */
-  public create(props: RequestProperties) {
+  public create(props: RequestPayload) {
     return this.sendRequest(this.getRestUri(), props, [], methods.POST);
   }
 
-  public update(props: RequestProperties) {
+  public update(props: RequestPayload) {
     return this.sendRequest(this.getRestUri(), props, [], methods.PUT);
   }
 

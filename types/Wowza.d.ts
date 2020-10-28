@@ -1,4 +1,4 @@
-import { RequestProperties } from "./RequestProperties";
+import { RequestPayload } from "./RequestPayload";
 import { Entity } from "./Entity";
 import Settings from "../src/entities/app/helpers/Settings";
 
@@ -13,7 +13,7 @@ export interface WowzaInterface {
   settings: Settings;
   sendRequest(
     uri: string,
-    props: RequestProperties,
+    props: RequestPayload,
     entities: Entity[],
     verbType?: string,
     queryParams?: string

@@ -1,4 +1,4 @@
-export type RequestProperties = {
+export type RequestPayload = {
   password?: string;
   name?: string;
   serverName?: string;

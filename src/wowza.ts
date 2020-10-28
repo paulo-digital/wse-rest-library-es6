@@ -1,6 +1,6 @@
 const axios = require("axios").default;
 // Types
-import { RequestProperties } from "../types/RequestProperties.d";
+import { RequestPayload } from "../types/RequestPayload";
 import { Entity } from "../types/Entity.d";
 import { MethodTypes, WowzaInterface } from "../types/Wowza.d";
 // Classes
@@ -40,29 +40,21 @@ class Wowza implements WowzaInterface {
   }
 
   sendRequest(
-    uri: string,
-    props: RequestProperties,
+    url: string,
+    payload: RequestPayload,
     entities: Entity[],
-    verbType: string = methods.POST,
+    method: string = methods.POST,
     queryParams?: string
   ) {
-    if (props) {
-      // const entityCount = entities.length;
-      // if (entityCount > 0) {
-      //   entities.forEach((entity, i) => {
-      //     const name = entity.getEntityName();
-      //     props[name] = entity;
-      //   });
-      // }
-
+    if (payload) {
       const axiosOptions = {
-        url: uri,
-        method: verbType,
+        url,
+        method,
         headers: {
           Accept: "application/json; charset=utf-8",
           "Content-type": "application/json; charset=utf-8",
         },
-        data: props,
+        data: payload,
         auth: {
           username: this.settings.getUsername(),
           password: this.settings.getPassword(),
